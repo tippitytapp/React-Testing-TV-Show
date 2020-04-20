@@ -48,7 +48,7 @@ const episodeData=[
 ]
 
 test('can view episode data', ()=>{
-console.log(episodeData)
+// console.log(episodeData)
 });
 
 test('renders without error', () => {

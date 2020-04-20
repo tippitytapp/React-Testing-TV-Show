@@ -1,5 +1,5 @@
 import React from "react";
-import {render, waitFor} from "@testing-library/react";
+import {render, fireEvent, waitFor} from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import {episodeData} from './test-data';
@@ -60,7 +60,7 @@ test('renders episode data when season is selected', async () => {
     mockFetchShow.mockResolvedValueOnce(episodeData)
 
     const {getByText, queryAllByTestId, debug}= render(<App/>)
-    const select = getByText*(/select an option/i)
-
-    userEvent.selectOptions(select, 'Season 1')
+    await waitFor(()=>{expect(getByText(/select a season/i)).toBeVisible();
+    fireEvent.click(getByText(/select a season/i))
+    })
 })

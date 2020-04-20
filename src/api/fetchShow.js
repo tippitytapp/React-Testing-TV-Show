@@ -9,7 +9,7 @@ return axios
               "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
             )
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 return res;
             });
 };
