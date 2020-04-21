@@ -1,5 +1,5 @@
 import React from "react";
-import {render, fireEvent, waitFor} from "@testing-library/react";
+import {render, fireEvent, waitFor, act, waitForElementToBeRemoved} from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import {episodeData} from './test-data';
@@ -56,13 +56,21 @@ import {fetchShow as mockFetchShow} from './api/fetchShow';
 
 jest.mock('./api/fetchShow');
 
-test('renders episode data when season is selected', async () => {
-    mockFetchShow.mockResolvedValueOnce(episodeData)
+test("renders once loaded", async () => {
+    act(() => {
+      mockFetchShow.mockResolvedValueOnce(episodeData);
+    });
+    const { getByPlaceholderText, getByText, queryByText, debug } = render(<App />);
+    waitForElementToBeRemoved(queryByText(/Fetching data.../i)).then(() => {
+      const selection = getByText(/Select a season/i);
+      debug()
+      userEvent.click(selection, 'Select a season')
+      debug()
+    const season2 = getByText(/season 2/i);
+      debug()
+      userEvent.click(season2);
+      debug()
 
-    const {getByText, queryAllByTestId, debug}= render(<App/>)
 
-    await waitFor(()=>{expect(getByText(/select a season/i)).toBeVisible();
-    fireEvent.click(getByText(/select a season/i))
-     userEvent.selectOptions(expect(getByText(/select a season/i), "Season 1").toBeVisible())
-    })
-})
+    });
+  });
