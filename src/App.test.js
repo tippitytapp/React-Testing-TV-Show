@@ -60,7 +60,7 @@ test("renders once loaded", async () => {
     act(() => {
       mockFetchShow.mockResolvedValueOnce(episodeData);
     });
-    const { getByPlaceholderText, getByText, queryByText, debug } = render(<App />);
+    const { getAllByTestId, getByText, queryByText, debug } = render(<App />);
     waitForElementToBeRemoved(queryByText(/Fetching data.../i)).then(() => {
       const selection = getByText(/Select a season/i);
       debug()
@@ -70,7 +70,6 @@ test("renders once loaded", async () => {
       debug()
       userEvent.click(season2);
       debug()
-
-
+      expect(getAllByTestId(/episodes/i)).toBeVisible();
     });
   });
