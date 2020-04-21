@@ -60,8 +60,9 @@ test('renders episode data when season is selected', async () => {
     mockFetchShow.mockResolvedValueOnce(episodeData)
 
     const {getByText, queryAllByTestId, debug}= render(<App/>)
+
     await waitFor(()=>{expect(getByText(/select a season/i)).toBeVisible();
     fireEvent.click(getByText(/select a season/i))
-    debug()
+     userEvent.selectOptions(expect(getByText(/select a season/i), "Season 1").toBeVisible())
     })
 })
